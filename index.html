@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+			canvas { width: 90%; height: 90% }
+		</style>
+	</head>
+	<body>
+		<script src="js/three.js"></script>
+		<script type="module">
+
+            
+
+
+			var scene = new THREE.Scene();
+            var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+            var renderer = new THREE.WebGLRenderer();
+            renderer.setSize( window.innerWidth, window.innerHeight );
+            document.body.appendChild( renderer.domElement );
+
+
+           // import { OrbitControls } from 'OrbitControls.js';
+           import { FBXLoader } from 'FBXLoader.js';
+            var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+            var material = new THREE.MeshBasicMaterial( { color: 0x00ffaa } );
+            var cube = new THREE.Mesh( geometry, material );
+           // scene.add( cube );
+
+            var grid = new THREE.GridHelper( 2000, 20, 0x000000, 0x000000 );
+            grid.material.opacity = 0.2;
+            grid.material.transparent = true;
+            scene.add( grid );
+
+           var loader = new FBXLoader();
+
+            loader.load( 'Oddish/Oddish.FBX', function ( obj ) {
+                scene.add( obj );
+            });
+
+
+            camera.position.z = 5;
+
+            function animate() {
+                requestAnimationFrame( animate );
+                
+
+
+                // cube.rotation.x += 0.01;
+                // cube.rotation.y += 0.01;
+
+                renderer.render( scene, camera );
+            }
+            animate();
+
+                
+
+        </script>
+	</body>
+</html>
