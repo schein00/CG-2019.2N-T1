@@ -31,8 +31,8 @@
 				container = document.createElement( 'div' );
 				document.body.appendChild( container );
 
-				camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 5000 );
-				camera.position.set( 100, 200, 700 );
+				camera = new THREE.PerspectiveCamera( 100, window.innerWidth / window.innerHeight, 100, 5000 );
+				camera.position.set( 2000, 500, 500 );
 
 				scene = new THREE.Scene();
 				scene.background = new THREE.Color( 0x363636 );
@@ -48,20 +48,23 @@
 
 
 				// ground
-				var mesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 3000, 3000 ), new THREE.MeshPhongMaterial( { color: 0x4B0082, depthWrite: false } ) );
-				mesh.rotation.x = - Math.PI / 2;
-				mesh.receiveShadow = true;
-				scene.add( mesh );
+				// var mesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 3000, 3000 ), new THREE.MeshPhongMaterial( { color: 0x4B0082, depthWrite: false } ) );
+				// mesh.rotation.x = - Math.PI / 2;
+				// mesh.receiveShadow = true;
+				// scene.add( mesh );
 
 				// model
 				var loader = new FBXLoader();
 				loader.load( 'models/fbx/Garchomp/Garchomp.fbx', function ( object ) {
+					
 					
 
 					mixer = new THREE.AnimationMixer( object );
 
 					var action = mixer.clipAction( object.animations[ 0 ] );
 					action.play();
+
+					object.textureload
 
 					object.traverse( function ( child ) {
 
