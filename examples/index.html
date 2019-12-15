@@ -35,11 +35,7 @@
 				camera.position.set( 100, 200, 700 );
 
 				scene = new THREE.Scene();
-				scene.background = new THREE.Color( 0x00BFFF );
-
-				light = new THREE.HemisphereLight( 0xffffff, 0x444444 );
-				light.position.set( 0, 200, 0 );
-				scene.add( light );
+				scene.background = new THREE.Color( 0x363636 );
 
 				light = new THREE.DirectionalLight( 0xffffff );
 				light.position.set( 0, 200, 100 );
@@ -52,14 +48,14 @@
 
 
 				// ground
-				var mesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 3000, 3000 ), new THREE.MeshPhongMaterial( { color: 0x006633, depthWrite: false } ) );
+				var mesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 3000, 3000 ), new THREE.MeshPhongMaterial( { color: 0x4B0082, depthWrite: false } ) );
 				mesh.rotation.x = - Math.PI / 2;
 				mesh.receiveShadow = true;
 				scene.add( mesh );
 
 				// model
 				var loader = new FBXLoader();
-				loader.load( 'models/fbx/mime macarena.fbx', function ( object ) {
+				loader.load( 'models/fbx/Garchomp/Garchomp.fbx', function ( object ) {
 					
 
 					mixer = new THREE.AnimationMixer( object );
