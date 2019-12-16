@@ -21,7 +21,7 @@
 
 			var clock = new THREE.Clock();
 
-			var mixer;
+			var mixer, mixer2;
 
 			init();
 			animate();
@@ -39,7 +39,7 @@
 
 				light = new THREE.DirectionalLight( 0xffffff );
 				light.position.set( 0, 200, 100 );
-				light.castShadow = true;
+				// light.castShadow = true;
 				light.shadow.camera.top = 180;
 				light.shadow.camera.bottom = - 100;
 				light.shadow.camera.left = - 120;
@@ -48,23 +48,24 @@
 
 
 				// ground
-				// var mesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 3000, 3000 ), new THREE.MeshPhongMaterial( { color: 0x4B0082, depthWrite: false } ) );
-				// mesh.rotation.x = - Math.PI / 2;
-				// mesh.receiveShadow = true;
-				// scene.add( mesh );
+				var solo = new THREE.Mesh( new THREE.PlaneBufferGeometry( 5000, 5000 ), new THREE.MeshPhongMaterial( { color: 0x4B0082, depthWrite: false } ) );
+				solo.rotation.x = - Math.PI / 2;
+				solo.receiveShadow = true;
+				scene.add( solo );
 
 				// model
 				var loader = new FBXLoader();
 				loader.load( 'models/fbx/Garchomp/Garchomp.fbx', function ( object ) {
-					
+				// loader.load( 'models/fbx/Bisharp/Bisharp.fbx', function ( object ) {	
 					
 
 					mixer = new THREE.AnimationMixer( object );
-
+					
+					object.position.set(100, 100, -750 );
 					var action = mixer.clipAction( object.animations[ 0 ] );
 					action.play();
 
-					object.textureload
+					//object.textureload
 
 					object.traverse( function ( child ) {
 
@@ -78,6 +79,40 @@
 					} );
 
 					scene.add( object );
+
+				} );
+
+				//Bisharp
+				
+				// model
+				var loader2 = new FBXLoader();
+				loader2.load( 'models/fbx/Bisharp/Stumble Backwards.fbx', function ( object2 ) {
+					
+					object2.position.set(100, 100, 650 );
+
+					object2.rotateY(600);
+
+					// object2.scale = (10,10,10);
+
+					mixer2 = new THREE.AnimationMixer( object2 );
+
+					var action2 = mixer2.clipAction( object2.animations[ 1 ] );
+					action2.play();
+
+					//object.textureload
+
+					object2.traverse( function ( child2 ) {
+
+						if ( child2.isMesh ) {
+
+							child2.castShadow = true;
+							child2.receiveShadow = true;
+
+						}
+
+					} );
+
+					scene.add( object2 );
 
 				} );
 
@@ -115,9 +150,11 @@
 
 				var delta = clock.getDelta();
 
-				if ( mixer ) mixer.update( delta );
+				if (mixer) mixer.update(delta);
 
-				renderer.render( scene, camera );
+				if (mixer2) mixer2.update(delta);
+
+				renderer.render(scene, camera);
 
 				stats.update();
 
